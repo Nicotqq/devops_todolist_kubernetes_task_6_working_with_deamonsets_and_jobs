@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: todoapp-cronjob
+  namespace: todoapp
+spec:
+  schedule: "*/4 * * * *"
+  concurrencyPolicy: Allow
+  startingDeadlineSeconds: 60
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: health-check
+              image: busyboxplus:curl
+              command:
+              - curl 
+              - -f
+              - http://todoapp-service/api/health
+            restartPolicy: OnFailure
+
