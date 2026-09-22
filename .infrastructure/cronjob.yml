@@ -3,7 +3,7 @@ kind: CronJob
 
 metadata:
   name: todoapp-cronjob
-  namespace: todoapp
+  namespace: mateapp
 
 spec:
   schedule: "*/4 * * * *"
